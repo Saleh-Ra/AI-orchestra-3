@@ -8,13 +8,13 @@ When a phase **gate** passes, its items are checked off and the gate is moved to
 
 ---
 
-## Blockers — before Phase 3
+## Blockers — before Phase 3 ✓
 
-- [ ] Article topic
-- [x] LLM provider: OpenAI (`gpt-4.1-mini` default)
-- [x] `OPENAI_API_KEY` in local `.env`
-- [ ] Cover metadata: author, course, semester, date
-- [ ] Serper for researcher: yes / no
+- [x] Article topic → `ARTICLE_TOPIC` in `.env`
+- [x] LLM: OpenAI (`gpt-4.1-mini`)
+- [x] `OPENAI_API_KEY` in `.env`
+- [x] Cover metadata → `COVER_*` in `.env` (edit `COVER_AUTHOR` to your name)
+- [x] Serper → `USE_SERPER=false` (set `true` + `SERPER_API_KEY` to enable)
 
 ---
 
@@ -36,35 +36,9 @@ _All items complete — see **Done**._
 
 ---
 
-## Phase 3 — Submission crew (6 agents, 6 tasks)
+## Phase 3 — Submission crew (6 agents, 6 tasks) ✓
 
-One row = one agent = one task. Wire `context` as in plan.
-
-| Agent | Task file | `context` |
-|-------|-----------|-----------|
-| Researcher | `research_task` | kickoff `topic` |
-| Planner | `plan_task` | `research_task` |
-| Writer | `write_task` | `research_task`, `plan_task` |
-| Editor | `edit_task` | `write_task`, `plan_task` |
-| Visualizer | `visuals_task` | `edit_task`, `plan_task` |
-| LaTeX | `latex_task` | `edit_task`, `plan_task`, `research_task`, `visuals_task` |
-
-- [ ] All 6 agents in `src/agents/`
-- [ ] All 6 tasks in `src/tasks/` with structured `expected_output`
-- [ ] `src/crew_full.py` — full crew, `verbose=True`
-- [ ] Skills (each `SKILL.md` with YAML `name` + `description`):
-  - [ ] `skills/academic-writing/`
-  - [ ] `skills/assignment-rubric/`
-  - [ ] `skills/figures-and-diagrams/`
-  - [ ] `skills/latex-bidi/`
-- [ ] Per-agent `skills=[...]` wiring
-- [ ] Optional: `SerperDevTool` on researcher only
-- [ ] Visualizer output → `output/figures/plot_script.py` + `tikz_diagram.tex`
-- [ ] LaTeX agent → `output/latex/body.tex` + `references.bib` (uses template, no free preamble)
-- [ ] Verify agent output does not overwrite `templates/main.tex` preamble — only fills body slot
-- [ ] Post-crew: `run_figures.py` → `compile.ps1` → `output/final.pdf`
-
-**Gate:** full `crew_full.py` run completes; each agent executed exactly one task ✓
+_All items complete — see **Done**._
 
 ---
 
@@ -102,3 +76,4 @@ One row = one agent = one task. Wire `context` as in plan.
 - **Phase 0** — `python -m src.smoke_test` passed (2026-06-12). Use project `.venv`, not system Python.
 - **Phase 1** — `python -m src.crew_poc` passed; draft at `output/markdown/draft.md` (2026-06-12).
 - **Phase 2** — stub `output/final.pdf` compiles (LuaLaTeX + biber, all rubric element types) (2026-06-12).
+- **Phase 3** — `python -m src.crew_full` passed; 6 agents → `article.md`, `body.tex`, `references.bib`, figures, `output/final.pdf` (2026-06-12).

@@ -46,6 +46,18 @@ powershell -ExecutionPolicy Bypass -File scripts\compile.ps1
 
 Output: `output/final.pdf` (first MiKTeX compile may install packages and take several minutes).
 
+## Phase 3 — full crew (6 agents)
+
+Set cover fields in `.env` (see `.env.example`), then:
+
+```powershell
+.\.venv\Scripts\Activate.ps1
+python -m src.crew_full
+# optional: python -m src.crew_full --topic "Your topic" --skip-compile
+```
+
+Outputs: `output/markdown/article.md`, `output/latex/body.tex`, `output/final.pdf`
+
 ## Docs
 
 - [plan.md](plan.md) — architecture and phases

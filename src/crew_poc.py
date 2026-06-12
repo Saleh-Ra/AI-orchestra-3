@@ -10,7 +10,7 @@ from crewai import Crew, Process
 
 from src.agents import create_researcher, create_writer
 from src.config import get_llm, load_env
-from src.tasks import create_research_task, create_write_task
+from src.tasks import create_research_task, create_write_task_poc
 
 DEFAULT_TOPIC = "CrewAI multi-agent teams for document generation"
 OUTPUT_PATH = Path("output/markdown/draft.md")
@@ -22,7 +22,7 @@ def build_crew() -> Crew:
     writer = create_writer(llm)
 
     research_task = create_research_task(researcher)
-    write_task = create_write_task(writer, research_task)
+    write_task = create_write_task_poc(writer, research_task)
 
     return Crew(
         agents=[researcher, writer],
