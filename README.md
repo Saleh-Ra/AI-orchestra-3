@@ -27,6 +27,16 @@ Use the project venv for every command (`Activate.ps1` first, or `.\.venv\Script
 python -m src.smoke_test
 ```
 
+## Phase 1 — two-agent POC
+
+```powershell
+.\.venv\Scripts\Activate.ps1
+python -m src.crew_poc
+# optional: python -m src.crew_poc --topic "Your topic"
+```
+
+Output: `output/markdown/draft.md`
+
 ## Docs
 
 - [plan.md](plan.md) — architecture and phases
