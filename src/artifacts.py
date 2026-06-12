@@ -64,6 +64,8 @@ def normalize_tikz(tex: str) -> str:
     if match:
         tex = match.group(0)
     tex = tex.replace(r"\sffamily", "")
+    tex = tex.replace("node distance=4cm and 3cm", "node distance=2.2cm and 1.8cm")
+    tex = tex.replace("minimum width=3.5cm", "minimum width=2.4cm")
     tex = re.sub(
         r"\\node(\[[^\]]*\])?\s*(\([^)]+\))?\s*\{([^}]+)\}",
         lambda m: (
@@ -77,12 +79,30 @@ def normalize_tikz(tex: str) -> str:
 
 def normalize_body(tex: str) -> str:
     tex = tex.replace(r"\chapter{", r"\section{")
+    tex = tex.replace("\u2192", r"$\rightarrow$")
     tex = INCLUDEGRAPHICS_RE.sub(
         lambda m: m.group(0)
         if m.group(2) == "plot.pdf"
         else f"{m.group(1)}sample.png{m.group(3)}",
         tex,
     )
+    if r"\textenglish" not in tex:
+        bidi = (
+            r"\section{דוגמה ל-BiDi: עברית ואנגלית בפסקה אחת}"
+            "\n\nבפרק זה מודגמת ערבוב נכון של עברית ואנגלית: מערכת "
+            r"\textenglish{CrewAI} משלבת סוכני \textenglish{AI} עם "
+            r"\textenglish{Large Language Models (LLM)} בתהליך "
+            r"\textenglish{multi-agent orchestration}. מונחים טכניים כמו "
+            r"\textenglish{context handoff} ו-\textenglish{sequential process} "
+            "מופיעים בתוך משפט בעברית תוך שמירה על כיווניות "
+            r"\textenglish{RTL/LTR}.\n\n"
+        )
+        insert_at = tex.find(r"\section{")
+        if insert_at != -1:
+            end = tex.find(r"\section{", insert_at + 1)
+            if end == -1:
+                end = len(tex)
+            tex = tex[:end] + "\n" + bidi + tex[end:]
     return tex.strip() + "\n"
 
 
