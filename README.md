@@ -1,0 +1,33 @@
+# AI Orchestra — Assignment 03
+
+CrewAI multi-agent pipeline that generates an article/book and compiles a PDF via LaTeX.
+
+## Prerequisites
+
+- Python 3.12+
+- MiKTeX with `lualatex` and `biber` on PATH
+- OpenAI API key
+
+## Setup
+
+```powershell
+python -m venv .venv
+.\.venv\Scripts\Activate.ps1
+pip install -r requirements.txt
+copy .env.example .env
+# Edit .env and set OPENAI_API_KEY
+```
+
+Use the project venv for every command (`Activate.ps1` first, or `.\.venv\Scripts\python.exe`).
+
+## Phase 0 — smoke test
+
+```powershell
+.\.venv\Scripts\Activate.ps1
+python -m src.smoke_test
+```
+
+## Docs
+
+- [plan.md](plan.md) — architecture and phases
+- [TODO.md](TODO.md) — task checklist
