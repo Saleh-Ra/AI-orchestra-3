@@ -24,15 +24,9 @@ _All items complete — see **Done**._
 
 ---
 
-## Phase 1 — CrewAI POC (2 agents, learning only)
+## Phase 1 — CrewAI POC ✓
 
-- [ ] `src/agents/researcher.py`, `src/agents/writer.py`
-- [ ] `src/tasks/research_task.py`, `src/tasks/write_task.py` — `context=[research_task]` on write
-- [ ] `src/crew_poc.py` — `Process.sequential`, `kickoff(inputs={"topic": ...})`
-- [ ] Save → `output/markdown/draft.md`
-
-**Gate:** two agents collaborate; context handoff works ✓  
-_Not submission — proves CrewAI wiring._
+_All items complete — see **Done**._
 
 ---
 
@@ -113,3 +107,4 @@ One row = one agent = one task. Wire `context` as in plan.
 ## Done
 
 - **Phase 0** — `python -m src.smoke_test` passed (2026-06-12). Use project `.venv`, not system Python.
+- **Phase 1** — `python -m src.crew_poc` passed; draft at `output/markdown/draft.md` (2026-06-12).
