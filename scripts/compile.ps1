@@ -6,6 +6,9 @@ $Template = Join-Path $Root "templates\main.tex"
 $FinalPdf = Join-Path $Root "output\final.pdf"
 
 Copy-Item $Template (Join-Path $LatexDir "main.tex") -Force
+$Python = Join-Path $Root ".venv\Scripts\python.exe"
+if (-not (Test-Path $Python)) { $Python = "python" }
+& $Python (Join-Path $Root "scripts\generate_cover.py")
 
 Push-Location $LatexDir
 try {

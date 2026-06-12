@@ -6,11 +6,12 @@ from crewai import Agent, LLM
 def create_writer(llm: LLM) -> Agent:
     return Agent(
         role="Technical Writer",
-        goal="Turn research notes into a clear, readable short article",
+        goal="Write a ~15-page Markdown article on {topic} from research and outline",
         backstory=(
-            "You transform structured research into accessible prose. "
-            "You write in Markdown with headings and short paragraphs."
+            "You expand structured research into a full Hebrew technical article "
+            "with clear chapters, following the architect's plan exactly."
         ),
         llm=llm,
+        skills=["./skills/academic-writing"],
         verbose=True,
     )
