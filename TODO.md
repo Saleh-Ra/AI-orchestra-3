@@ -30,16 +30,9 @@ _All items complete — see **Done**._
 
 ---
 
-## Phase 2 — LaTeX spine (infrastructure only — no agents)
+## Phase 2 — LaTeX spine ✓
 
-- [ ] `templates/main.tex` — LuaLaTeX, Hebrew RTL, cover, headers/footers, ToC
-- [ ] Stub `body.tex` + `references.bib`
-- [ ] Stub includes: formula, table, **TikZ diagram**, static image (`assets/`), BiDi paragraph, `\cite{}`
-- [ ] `scripts/run_figures.py` + stub `plot_script.py` → `output/figures/plot.pdf`
-- [ ] `scripts/compile.ps1` — LuaLaTeX + biber (~4 passes)
-- [ ] Compile stub → `output/final.pdf`
-
-**Gate:** every rubric *element type* appears in stub PDF ✓
+_All items complete — see **Done**._
 
 ---
 
@@ -108,3 +101,4 @@ One row = one agent = one task. Wire `context` as in plan.
 
 - **Phase 0** — `python -m src.smoke_test` passed (2026-06-12). Use project `.venv`, not system Python.
 - **Phase 1** — `python -m src.crew_poc` passed; draft at `output/markdown/draft.md` (2026-06-12).
+- **Phase 2** — stub `output/final.pdf` compiles (LuaLaTeX + biber, all rubric element types) (2026-06-12).
