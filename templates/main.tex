@@ -1,0 +1,67 @@
+% !TEX program = lualatex
+% Fixed preamble and document shell — LaTeX agent fills body.tex only.
+\documentclass[12pt,a4paper]{article}
+
+\usepackage{fontspec}
+\usepackage{polyglossia}
+\setdefaultlanguage{hebrew}
+\setotherlanguage{english}
+\setmainfont{David}[Script=Hebrew, Language=Hebrew]
+\newfontfamily\hebrewfonttt{Courier New}[Script=Hebrew, Language=Hebrew]
+\newfontfamily\englishfont{Times New Roman}[Script=Latin, Language=English]
+\setlength{\headheight}{14pt}
+
+\usepackage{amsmath,amssymb}
+\usepackage{graphicx}
+\graphicspath{{../figures/}{../../assets/}}
+\usepackage{booktabs}
+\usepackage{tikz}
+\usetikzlibrary{arrows.meta,positioning}
+\usepackage{fancyhdr}
+\usepackage{hyperref}
+\usepackage[margin=2.5cm]{geometry}
+\usepackage[style=authoryear,backend=biber,sorting=nyt]{biblatex}
+\addbibresource{references.bib}
+
+\hypersetup{colorlinks=true, linkcolor=blue, citecolor=blue, urlcolor=blue}
+
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[R]{\small\leftmark}
+\fancyhead[L]{\small AI Orchestra --- מטלת 03}
+\fancyfoot[C]{\thepage}
+\renewcommand{\headrulewidth}{0.4pt}
+
+\newcommand{\coversubject}{ייצור המוני של סוכני AI}
+\newcommand{\coverauthor}{שם הסטודנט}
+\newcommand{\covercourse}{ייצור המוני של סוכני AI}
+\newcommand{\coversemester}{סמסטר א׳ 2026}
+\newcommand{\coverdate}{\today}
+
+\begin{document}
+
+\begin{titlepage}
+  \centering
+  \vspace*{2cm}
+  {\LARGE\bfseries \coversubject\par}
+  \vspace{1.5cm}
+  {\large מאמר לדוגמה --- שלד LaTeX\par}
+  \vfill
+  {\large\textbf{מגיש:} \coverauthor\par}
+  \vspace{0.5cm}
+  {\large\textbf{קורס:} \covercourse\par}
+  \vspace{0.5cm}
+  {\large\textbf{סמסטר:} \coversemester\par}
+  \vspace{0.5cm}
+  {\large\textbf{תאריך:} \coverdate\par}
+  \vfill
+\end{titlepage}
+
+\tableofcontents
+\newpage
+
+\input{body.tex}
+
+\printbibliography
+
+\end{document}

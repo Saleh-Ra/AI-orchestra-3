@@ -37,6 +37,15 @@ python -m src.crew_poc
 
 Output: `output/markdown/draft.md`
 
+## Phase 2 — LaTeX stub PDF
+
+```powershell
+.\.venv\Scripts\python.exe scripts\run_figures.py
+powershell -ExecutionPolicy Bypass -File scripts\compile.ps1
+```
+
+Output: `output/final.pdf` (first MiKTeX compile may install packages and take several minutes).
+
 ## Docs
 
 - [plan.md](plan.md) — architecture and phases
