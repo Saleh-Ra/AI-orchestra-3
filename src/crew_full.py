@@ -23,7 +23,8 @@ from src.artifacts import (
     write_latex_artifacts,
     write_visuals_artifacts,
 )
-from src.config import DEFAULT_TOPIC, get_llm, get_project_settings, load_env
+from src.config import get_llm, get_project_settings, load_env
+from src.run_log import log_failure, write_run_log
 from src.tasks import (
     create_edit_task,
     create_latex_task,
@@ -136,25 +137,70 @@ def main() -> int:
         action="store_true",
         help="Stop after saving LaTeX artifacts (no PDF)",
     )
+    parser.add_argument(
+        "--validate",
+        action="store_true",
+        help="Run scripts/validate_outputs.py after compile",
+    )
     args = parser.parse_args()
 
     print(f"Topic: {args.topic}")
     print(f"Cover author: {settings.cover_author}")
     print(f"Serper search: {settings.use_serper}")
 
-    crew = build_crew()
-    result = crew.kickoff(inputs={"topic": args.topic})
+    result = None
+    try:
+        crew = build_crew()
+        result = crew.kickoff(inputs={"topic": args.topic})
+        _save_artifacts(result)
+    except Exception as exc:
+        log_path = log_failure(args.topic, exc, result)
+        print(f"Run failed — log: {log_path}", file=sys.stderr)
+        raise
 
-    _save_artifacts(result)
     print(f"Markdown: {MARKDOWN_OUT}")
     print(f"LaTeX: {LATEX_DIR / 'body.tex'}")
 
     _assert_template_unchanged()
 
     _run_script("scripts/run_figures.py")
+    pdf_path = ROOT / "output" / "final.pdf"
+    compile_ok = True
+    compile_error: str | None = None
     if not args.skip_compile:
-        _run_script("scripts/compile.ps1")
-        print(f"PDF: {ROOT / 'output' / 'final.pdf'}")
+        try:
+            _run_script("scripts/compile.ps1")
+            print(f"PDF: {pdf_path}")
+        except subprocess.CalledProcessError as exc:
+            compile_ok = False
+            compile_error = str(exc)
+
+    artifacts = {
+        "article_md": str(MARKDOWN_OUT),
+        "body_tex": str(LATEX_DIR / "body.tex"),
+        "references_bib": str(LATEX_DIR / "references.bib"),
+        "plot_pdf": str(FIGURES_DIR / "plot.pdf"),
+        "final_pdf": str(pdf_path) if pdf_path.is_file() else "",
+    }
+    log_path = write_run_log(
+        topic=args.topic,
+        success=compile_ok if not args.skip_compile else True,
+        result=result,
+        artifacts=artifacts,
+        error=compile_error,
+    )
+    print(f"Run log: {log_path}")
+
+    if compile_error:
+        return 1
+
+    if args.validate or not args.skip_compile:
+        validate = subprocess.run(
+            [sys.executable, str(ROOT / "scripts" / "validate_outputs.py")],
+            cwd=ROOT,
+        )
+        if validate.returncode != 0:
+            return validate.returncode
 
     return 0
 

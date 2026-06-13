@@ -16,7 +16,7 @@ def create_visuals_task(
         expected_output=(
             "EXACTLY three markdown fenced code blocks with these first-line labels:\n"
             "1. ```plot_script.py — matplotlib script that saves plot.pdf\n"
-            "2. ```tikz_diagram.tex — standalone TikZ picture (3-node flow)\n"
+            "2. ```tikz_diagram.tex — standalone TikZ picture (3-node flow); one-line labels only, no line breaks; no startstop/process/decision styles\n"
             "3. ```image_spec.txt — caption/alt text for the static image"
         ),
         agent=agent,

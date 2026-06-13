@@ -17,4 +17,8 @@ Output exactly three fenced code blocks:
 Plot script must use only matplotlib + stdlib. TikZ should be a simple RTL-friendly flow (3–4 nodes).
 
 TikZ rules for Hebrew documents: output only `\begin{tikzpicture}...\end{tikzpicture}`; no
-`\documentclass` or `\sffamily`; wrap English labels in `\textenglish{...}`.
+`\documentclass`, `\sffamily`, `\tikzstyle`, or tutorial flowchart keys like `startstop`,
+`process`, `decision`, or `[agent]`; use plain `\node` with `right=of` (not `right of=`);
+**one short line per node label** — never `\\` or `\\[4pt]` inside labels; wrap English in
+`\textenglish{...}`; use `\draw[->, thick]` for arrows. Keep diagrams to a simple 3-node
+horizontal flow — complex automata or polytope drawings belong in body prose, not TikZ.
