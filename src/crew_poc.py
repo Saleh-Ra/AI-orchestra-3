@@ -5,8 +5,8 @@ from __future__ import annotations
 import argparse
 import sys
 
-from src.shared.config import default_topic, load_env
 from src.sdk import run_poc
+from src.shared.config import default_topic, load_env
 
 
 def main() -> int:

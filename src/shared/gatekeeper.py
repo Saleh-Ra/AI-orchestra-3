@@ -5,8 +5,9 @@ from __future__ import annotations
 import json
 import time
 from collections import deque
+from collections.abc import Callable
 from pathlib import Path
-from typing import Any, Callable, TypeVar
+from typing import TypeVar
 
 from crewai import LLM
 

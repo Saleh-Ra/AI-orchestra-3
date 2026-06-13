@@ -15,7 +15,7 @@ from src.pipeline.crew_build import build_full_crew
 from src.pipeline.paths import FIGURES_DIR, FINAL_PDF, LATEX_DIR, MARKDOWN_OUT, ROOT
 from src.pipeline.save import save_full_crew_artifacts
 from src.run_log import log_failure, write_run_log
-from src.shared.config import get_project_settings, load_env
+from src.shared.config import get_openai_model, get_project_settings, load_env
 from src.shared.gatekeeper import get_llm
 from src.tasks import create_research_task, create_write_task_poc
 
@@ -71,7 +71,7 @@ def run_full(
         result = build_full_crew().kickoff(inputs={"topic": topic})
         save_full_crew_artifacts(result)
     except Exception as exc:
-        log_path = log_failure(topic, exc, result)
+        log_path = log_failure(topic, exc, result, model=get_openai_model())
         print(f"Run failed — log: {log_path}", file=sys.stderr)
         raise
 
@@ -103,6 +103,7 @@ def run_full(
         result=result,
         artifacts=artifacts,
         error=compile_error,
+        model=get_openai_model(),
     )
     print(f"Run log: {log_path}")
 

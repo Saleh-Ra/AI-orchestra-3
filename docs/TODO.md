@@ -153,40 +153,40 @@ Per guidelines §3–§5, §14: modular packages, max 150 lines per `.py` file, 
 - [x] `src/__init__.py` exports version; `src/config.py` backward-compat shim
 - [x] `config/setup.json` + `config/rate_limits.json`
 - [x] Docstrings on new public modules
-- [ ] `ruff check` clean — deferred to Phase 8
+- [x] `ruff check` clean — Phase 8
 
 **Gate:** every `src/**/*.py` ≤ 150 lines ✓; SDK entry for crew/recompile ✓
 
 ---
 
-## Phase 8 — Tooling & tests (uv, Ruff, TDD, 85% coverage)
+## Phase 8 — Tooling & tests (uv, Ruff, TDD, 85% coverage) ✓
 
 Per guidelines §6–§8: `uv` (not pip/venv), Ruff zero errors, tests with ≥85% coverage.
 
-- [ ] Migrate `requirements.txt` → `pyproject.toml` + `uv.lock` (`uv sync`)
-- [ ] `[tool.ruff]` in `pyproject.toml` — zero errors (`uv run ruff check`)
-- [ ] `[tool.coverage]` — `fail_under = 85`, `source = ["src"]`
-- [ ] `tests/unit/` — mirror `src/` structure
-  - [ ] `test_artifacts_tikz.py` — TikZ normalize/rebuild (startstop, `\node`, etc.)
-  - [ ] `test_artifacts_body.py` — body normalize, tabular fix, inline TikZ
-  - [ ] `test_config.py` — env loading, no secrets in code
-  - [ ] `test_gatekeeper.py` — rate limits, queue/mock (when gatekeeper exists)
-- [ ] `tests/integration/` — `test_crew_full_dry.py` or compile-only path (mock LLM)
-- [ ] `tests/conftest.py` — shared fixtures
-- [ ] Update README commands → `uv run python -m src.crew_full --validate`
+- [x] Migrate `requirements.txt` → `pyproject.toml` + `uv.lock` (`uv sync`)
+- [x] `[tool.ruff]` in `pyproject.toml` — zero errors (`uv run ruff check`)
+- [x] `[tool.coverage]` — `fail_under = 85`, `source = ["src"]`
+- [x] `tests/unit/` — mirror `src/` structure
+  - [x] `test_artifacts_tikz.py` — TikZ normalize/rebuild (startstop, `\node`, etc.)
+  - [x] `test_artifacts_body.py` — body normalize, tabular fix, inline TikZ
+  - [x] `test_config.py` — env loading, no secrets in code
+  - [x] `test_gatekeeper.py` — rate limits, queue/mock (when gatekeeper exists)
+- [x] `tests/integration/` — `test_crew_full_dry.py` or compile-only path (mock LLM)
+- [x] `tests/conftest.py` — shared fixtures
+- [x] Update README commands → `uv run python -m src.crew_full --validate`
 
 **Gate:** `uv run pytest tests/ --cov` ≥ 85%; `uv run ruff check` passes ✓
 
 ---
 
-## Phase 9 — Research & cost analysis
+## Phase 9 — Research & cost analysis ✓
 
 Per guidelines §9, §11: experiments, results notebook, visualizations, token cost table.
 
-- [ ] Token/cost table from `output/logs/*.json` (model, input/output tokens, est. cost)
-- [ ] Compare 2–3 runs (topics or models) — sensitivity / repeatability notes
-- [ ] `notebooks/results_analysis.ipynb` (or `docs/results.md`) — charts + short write-up
-- [ ] Screenshots: cover PDF, ToC, BiDi page, bibliography links (for submission packet)
+- [x] Token/cost table from `output/logs/*.json` (model, input/output tokens, est. cost)
+- [x] Compare 2–3 runs (topics or models) — sensitivity / repeatability notes
+- [x] `notebooks/results_analysis.ipynb` (or `docs/results.md`) — charts + short write-up
+- [x] Screenshots: cover PDF, ToC, BiDi page, bibliography links (for submission packet)
 
 **Gate:** cost table + at least one comparison chart or table in `docs/` or `notebooks/` ✓
 
@@ -219,3 +219,5 @@ _Not every guidelines item is mandatory for a grade; more criteria met = higher 
 - **Phase 5** — second `crew_full` run; per-agent logs + hardened LaTeX normalize; README + validate pass (2026-06-12).
 - **Phase 6** — `docs/` with PRD, PLAN, TODO, mechanism PRDs, PROMPTS; README docs + license (2026-06-13).
 - **Phase 7** — split `artifacts/` package, SDK + gatekeeper + `config/`; all `src/**/*.py` ≤ 150 lines; recompile + validate pass (2026-06-13).
+- **Phase 8** — `pyproject.toml` + `uv.lock`, Ruff clean, pytest ≥91% coverage on `src/` (2026-06-13).
+- **Phase 9** — `docs/results.md`, cost chart, screenshots, analysis notebook; token logging in run logs (2026-06-13).

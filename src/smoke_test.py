@@ -20,7 +20,7 @@ def main() -> int:
         return 1
 
     try:
-        from crewai import Agent, Crew, LLM, Process, Task  # noqa: F401
+        from crewai import LLM, Agent, Crew, Process, Task  # noqa: F401
     except ImportError as exc:
         print(f"ERROR: CrewAI import failed: {exc}", file=sys.stderr)
         return 1
