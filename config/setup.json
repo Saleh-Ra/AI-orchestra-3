@@ -1,0 +1,5 @@
+{
+  "version": "1.00",
+  "default_topic": "CrewAI multi-agent teams for document generation",
+  "openai_model": "gpt-4.1-mini"
+}
