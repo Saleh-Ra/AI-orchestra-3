@@ -5,8 +5,8 @@ from __future__ import annotations
 import argparse
 import sys
 
-from src.shared.config import get_project_settings, load_env
 from src.sdk import run_full
+from src.shared.config import get_project_settings, load_env
 
 
 def main() -> int:

@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from crewai import Agent, LLM
+from crewai import LLM, Agent
 
 from src.config import get_project_settings
 

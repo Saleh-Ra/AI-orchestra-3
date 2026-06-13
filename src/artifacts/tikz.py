@@ -58,7 +58,7 @@ def _build_simple_tikz(labels: list[str] | None = None) -> str:
         "\\begin{tikzpicture}[node distance=2.2cm and 1.8cm, "
         f"every node/.style={{{TIKZ_NODE_STYLE}}}, >=Stealth]",
     ]
-    for i, (node_id, label) in enumerate(zip(ids, names)):
+    for i, (node_id, label) in enumerate(zip(ids, names, strict=True)):
         inner = wrap_textenglish(label) if "\\textenglish" not in label else label
         if i == 0:
             lines.append(f"\\node ({node_id}) {{{inner}}};")

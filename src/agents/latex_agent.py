@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from crewai import Agent, LLM
+from crewai import LLM, Agent
 
 
 def create_latex_agent(llm: LLM) -> Agent:

@@ -49,6 +49,7 @@ def write_visuals_artifacts(text: str, figures_dir: Path, latex_dir: Path) -> li
             "matplotlib" in body or "plot.pdf" in body
         ):
             path = figures_dir / "plot_script.py"
+            path.parent.mkdir(parents=True, exist_ok=True)
             path.write_text(body + "\n", encoding="utf-8")
             if path not in written:
                 written.append(path)
