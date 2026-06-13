@@ -25,12 +25,14 @@ def main() -> int:
         print(f"ERROR: CrewAI import failed: {exc}", file=sys.stderr)
         return 1
 
+    from src.shared.gatekeeper import get_llm
+
     model = (
         os.getenv("OPENAI_MODEL")
         or os.getenv("OPENAI_MODEL_NAME")
         or "gpt-4.1-mini"
     )
-    llm = LLM(model=model)
+    llm = get_llm()
 
     print(f"Calling OpenAI ({model})...")
     reply = llm.call("Reply with exactly one word: ok")

@@ -130,6 +130,13 @@ Checks: PDF exists, cite/bib keys match, table, equation, plot, TikZ, BiDi, bibl
 After agents finish, or to retry compile without re-running the crew:
 
 ```powershell
+.\.venv\Scripts\python.exe -c "from src.sdk import recompile_latex; recompile_latex()"
+.\.venv\Scripts\python.exe scripts\validate_outputs.py
+```
+
+Legacy (equivalent):
+
+```powershell
 .\.venv\Scripts\python.exe -c "from pathlib import Path; from src.artifacts import finalize_latex_outputs; finalize_latex_outputs(Path('output/latex'))"
 .\.venv\Scripts\python.exe scripts\run_figures.py
 powershell -ExecutionPolicy Bypass -File scripts\compile.ps1
@@ -155,15 +162,45 @@ Grading focuses on **technical correctness** (compile, citations, BiDi, layout),
 
 ```
 AI-orchestra-3/
-├── src/                 # agents, tasks, crew_poc.py, crew_full.py
+├── config/              # setup.json, rate_limits.json (versioned)
+├── src/
+│   ├── sdk/             # run_full, run_poc, recompile_latex
+│   ├── shared/          # config, gatekeeper, version
+│   ├── pipeline/        # crew build, save, compile helpers
+│   ├── artifacts/       # LaTeX normalize (split modules)
+│   ├── agents/          # CrewAI agents
+│   └── tasks/           # CrewAI tasks
 ├── templates/main.tex   # LaTeX shell (do not put article body here)
 ├── scripts/             # compile.ps1, run_figures.py, validate_outputs.py
 ├── skills/              # CrewAI agent skills (LaTeX, figures, rubric)
+├── docs/                # PRD, PLAN, TODO, mechanism PRDs (canonical)
 ├── assets/sample.png    # static image for rubric
 ├── output/              # generated markdown, latex, figures, final.pdf
-├── plan.md              # full architecture
-└── TODO.md              # phase checklist
+├── plan.md              # → docs/PLAN.md
+└── TODO.md              # → docs/TODO.md
 ```
+
+## Documentation
+
+Canonical project docs (per course submission guidelines):
+
+| Document | Description |
+|----------|-------------|
+| [docs/PRD.md](docs/PRD.md) | Product requirements, user stories, acceptance criteria |
+| [docs/PLAN.md](docs/PLAN.md) | Architecture, C4, ADRs, development phases |
+| [docs/TODO.md](docs/TODO.md) | Phase checklist and gates |
+| [docs/PRD_crew_pipeline.md](docs/PRD_crew_pipeline.md) | Six-agent CrewAI mechanism |
+| [docs/PRD_latex_normalize.md](docs/PRD_latex_normalize.md) | LaTeX post-processing mechanism |
+| [docs/PROMPTS.md](docs/PROMPTS.md) | Prompt and skill engineering log |
+
+Root [plan.md](plan.md) and [TODO.md](TODO.md) point to `docs/`.
+
+## License & credits
+
+- **Course:** Mass Production of AI Agents (L06), University of Haifa — Dr. Yoram Segal  
+- **Assignment:** CrewAI multi-agent article generation with LuaLaTeX PDF output  
+- **Stack:** [CrewAI](https://www.crewai.com/), OpenAI API, MiKTeX (LuaLaTeX + biber), matplotlib, TikZ  
+- **License:** Academic course submission — see instructor for redistribution terms  
 
 ## Troubleshooting
 
@@ -173,8 +210,3 @@ AI-orchestra-3/
 - **LaTeX compile failed** — see `output/latex/main.log`; try recompile-only commands above.
 - **LaTeX agent missing `body.tex`** — inspect `output/debug/task_5.txt`; re-run `crew_full`.
 - **Parallel `lualatex` hangs** — run a single `compile.ps1` at a time.
-
-## Docs
-
-- [plan.md](plan.md) — architecture, agent roles, design decisions
-- [TODO.md](TODO.md) — phase checklist and gates
