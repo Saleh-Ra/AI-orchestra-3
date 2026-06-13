@@ -110,12 +110,16 @@ One row = one agent = one task. Wire `context` as in plan.
 
 ---
 
-## Phase 5 — Hardening
+## Phase 5 — Hardening ✓
 
-- [ ] Second full pipeline run
-- [ ] Log per-agent failures; tune prompts
+- [x] Second full pipeline run — `crew_full --validate` (repeatability; hardened `artifacts.py` post-process)
+- [x] Log per-agent failures; tune prompts — `output/logs/latest.json`; TikZ/BiDi/rubric fallbacks in `finalize_latex_outputs`
 - [x] `scripts/validate_outputs.py` — PDF exists, bib keys ⊆ `\cite{}`, compile exit 0
-- [ ] README: prerequisites, env vars, `crew_poc` vs `crew_full`, compile steps
+- [x] README: prerequisites, env vars, `crew_poc` vs `crew_full`, compile steps
+
+**Gate:** second run + validation pass ✓
+
+---
 
 ---
 
@@ -126,3 +130,4 @@ One row = one agent = one task. Wire `context` as in plan.
 - **Phase 2** — stub `output/final.pdf` compiles (LuaLaTeX + biber, all rubric element types) (2026-06-12).
 - **Phase 3** — `python -m src.crew_full` passed; 6 agents → `article.md`, `body.tex`, `references.bib`, figures, `output/final.pdf` (2026-06-12).
 - **Phase 4** — `scripts/validate_outputs.py` passed; `output/final.pdf` 13 pp., all rubric elements present (2026-06-12). Set `COVER_AUTHOR` in `.env` before submit.
+- **Phase 5** — second `crew_full` run; per-agent logs + hardened LaTeX normalize; README + validate pass (2026-06-12).
